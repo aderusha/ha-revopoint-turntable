@@ -1,0 +1,43 @@
+name: Bug report
+description: Report a problem with the Revopoint Turntable integration.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: input
+    id: home_assistant_version
+    attributes:
+      label: Home Assistant version
+      placeholder: "2026.6.4"
+    validations:
+      required: true
+  - type: dropdown
+    id: model
+    attributes:
+      label: Turntable model
+      options:
+        - Dual Axis Turntable
+        - Large Turntable / TA500
+        - Other / not sure
+    validations:
+      required: true
+  - type: input
+    id: bluetooth_path
+    attributes:
+      label: Bluetooth path
+      placeholder: "Local adapter, ESPHome Bluetooth proxy, Home Assistant Bluetooth proxy, etc."
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What happened, and what did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Paste relevant Home Assistant logs with personal information removed.
+      render: text

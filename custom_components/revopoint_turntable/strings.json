@@ -1,0 +1,70 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Revopoint Turntable",
+        "data": {
+          "address": "Bluetooth address",
+          "name": "Name",
+          "model": "Model"
+        }
+      },
+      "bluetooth_confirm": {
+        "title": "Add {name}",
+        "description": "Set up {name} as a Revopoint {model}."
+      }
+    },
+    "abort": {
+      "already_configured": "This turntable is already configured.",
+      "not_supported": "This Bluetooth device is not a supported Revopoint turntable.",
+      "no_discovery_info": "Bluetooth discovery information is no longer available."
+    }
+  },
+  "entity": {
+    "button": {
+      "rotate_clockwise": {
+        "name": "Rotate clockwise"
+      },
+      "rotate_counterclockwise": {
+        "name": "Rotate counterclockwise"
+      },
+      "stop": {
+        "name": "Stop"
+      },
+      "return_to_zero_rotation": {
+        "name": "Return to zero (Rotation)"
+      },
+      "return_to_zero_tilt": {
+        "name": "Return to zero (Tilt)"
+      }
+    },
+    "number": {
+      "speed": {
+        "name": "Speed"
+      },
+      "tilt": {
+        "name": "Tilt"
+      }
+    },
+    "sensor": {
+      "motion_state": {
+        "name": "Motion state",
+        "state": {
+          "moving": "Moving",
+          "stopped": "Stopped"
+        }
+      },
+      "rotation_angle": {
+        "name": "Rotation angle"
+      },
+      "tilt_angle": {
+        "name": "Rotation angle (Tilt)"
+      }
+    },
+    "switch": {
+      "ble_connection": {
+        "name": "BLE connection"
+      }
+    }
+  }
+}

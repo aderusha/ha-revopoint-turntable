@@ -1,0 +1,28 @@
+name: Feature request
+description: Suggest an improvement or new supported behavior.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: request
+    attributes:
+      label: Request
+      description: What would you like this integration to do?
+    validations:
+      required: true
+  - type: dropdown
+    id: model
+    attributes:
+      label: Turntable model
+      options:
+        - Dual Axis Turntable
+        - Large Turntable / TA500
+        - Other / not sure
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add screenshots, logs, or related details if useful.

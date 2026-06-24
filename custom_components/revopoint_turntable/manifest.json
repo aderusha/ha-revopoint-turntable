@@ -1,0 +1,31 @@
+{
+  "domain": "revopoint_turntable",
+  "name": "Revopoint Turntable",
+  "bluetooth": [
+    {
+      "local_name": "REVO_DUAL_AXIS_TABLE"
+    },
+    {
+      "local_name": "REVO_TA500"
+    },
+    {
+      "local_name": "P_REVO_TA500"
+    },
+    {
+      "service_uuid": "0000ffe1-0000-1000-8000-00805f9b34fb"
+    }
+  ],
+  "codeowners": [
+    "@aderusha"
+  ],
+  "config_flow": true,
+  "dependencies": [
+    "bluetooth"
+  ],
+  "documentation": "https://github.com/aderusha/ha-revopoint-turntable",
+  "issue_tracker": "https://github.com/aderusha/ha-revopoint-turntable/issues",
+  "integration_type": "device",
+  "iot_class": "local_push",
+  "quality_scale": "bronze",
+  "version": "0.1.0"
+}

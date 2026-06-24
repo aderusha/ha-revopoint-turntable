@@ -1,0 +1,29 @@
+name: Validate
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Check Python syntax
+        run: |
+          python -m py_compile custom_components/revopoint_turntable/*.py
+
+      - name: Validate JSON
+        run: |
+          python -m json.tool hacs.json >/dev/null
+          python -m json.tool custom_components/revopoint_turntable/manifest.json >/dev/null
+          python -m json.tool custom_components/revopoint_turntable/strings.json >/dev/null
+          python -m json.tool custom_components/revopoint_turntable/translations/en.json >/dev/null
