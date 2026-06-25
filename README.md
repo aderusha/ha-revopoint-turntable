@@ -69,6 +69,8 @@ Revopoint turntables allow one active BLE controller connection at a time. Keep 
 
 The Dual Axis Turntable reports rotation angle after stop and return-to-zero commands. While the table is moving, this integration estimates the angle from the current speed and elapsed motion time, then uses the device-reported angle as the source of truth when it arrives.
 
+Rotation angle values are reported as positive modulo-360 degrees; `360` wraps to `0`.
+
 ## Notes
 
 - Large Turntable / TA500 support is included for users who can test it, but it is not maintainer-verified.

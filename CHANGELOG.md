@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.2
+
+- Report rotation angles as positive modulo-360 values.
+- Estimate return-to-zero motion using the shortest wrapped distance to zero.
+
 ## 0.1.1
 
 - Wrap estimated rotation angle values to one signed revolution.

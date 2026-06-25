@@ -243,16 +243,13 @@ class RevopointTurntableClient:
 
     @staticmethod
     def _normalize_rotation_angle(angle: float) -> int:
-        """Round and wrap rotation angles to one signed revolution."""
-        rounded_angle = round(angle)
-        if rounded_angle == 0:
-            return 0
+        """Round and wrap rotation angles to 0..359 degrees."""
+        return round(angle) % 360
 
-        magnitude = abs(rounded_angle) % 360
-        if magnitude == 0:
-            return 0
-
-        return magnitude if rounded_angle > 0 else -magnitude
+    @staticmethod
+    def _shortest_rotation_delta(from_angle: int, to_angle: int) -> int:
+        """Return the shortest signed delta between wrapped rotation angles."""
+        return ((to_angle - from_angle + 180) % 360) - 180
 
     def _mark_rotation_started(self, direction: int, started_at: float) -> None:
         """Mark a rotation run as active."""
@@ -284,7 +281,9 @@ class RevopointTurntableClient:
         self.state.moving = True
         self.state.last_angle_source = "estimated"
         self._rotation_started_at = started_at
-        self._rotation_direction = -1 if base_angle > 0 else 1
+        self._rotation_direction = (
+            1 if self._shortest_rotation_delta(base_angle, 0) > 0 else -1
+        )
         self._rotation_base_angle = base_angle
         self._rotation_target_angle = 0
         self._update_callback()
@@ -346,7 +345,9 @@ class RevopointTurntableClient:
         )
 
         if self._rotation_target_angle is not None:
-            delta = self._rotation_target_angle - base_angle
+            delta = self._shortest_rotation_delta(
+                base_angle, self._rotation_target_angle
+            )
             if delta == 0:
                 return self._rotation_target_angle
             step = min(abs(delta), travel)

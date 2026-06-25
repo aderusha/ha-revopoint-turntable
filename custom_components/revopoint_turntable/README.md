@@ -26,6 +26,8 @@ Dual Axis Turntable only:
 
 Revopoint turntables allow one active BLE controller connection at a time. Turn the BLE connection switch off when you want Home Assistant to release the turntable for another controller.
 
+Rotation angle values are reported as positive modulo-360 degrees; `360` wraps to `0`.
+
 ## Installation
 
 Install with HACS as a custom integration repository, or copy this folder to:
