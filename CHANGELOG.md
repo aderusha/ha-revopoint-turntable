@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+- Wrap estimated rotation angle values to one signed revolution.
+- Stop active rotation estimates when the BLE connection drops.
+
 ## 0.1.0
 
 - Initial public release.

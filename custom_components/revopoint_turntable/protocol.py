@@ -142,7 +142,7 @@ class RevopointTurntableClient:
             except BleakError:
                 _LOGGER.debug("Failed to stop notifications from %s", self.address)
             await client.disconnect()
-        self.state.connected = False
+        self._mark_disconnected()
         self._update_callback()
 
     async def async_query(self) -> None:
@@ -243,8 +243,16 @@ class RevopointTurntableClient:
 
     @staticmethod
     def _normalize_rotation_angle(angle: float) -> int:
-        """Round rotation angles to whole degrees for Home Assistant."""
-        return round(angle)
+        """Round and wrap rotation angles to one signed revolution."""
+        rounded_angle = round(angle)
+        if rounded_angle == 0:
+            return 0
+
+        magnitude = abs(rounded_angle) % 360
+        if magnitude == 0:
+            return 0
+
+        return magnitude if rounded_angle > 0 else -magnitude
 
     def _mark_rotation_started(self, direction: int, started_at: float) -> None:
         """Mark a rotation run as active."""
@@ -417,7 +425,7 @@ class RevopointTurntableClient:
                     response=False,
                 )
             except (BleakError, TimeoutError) as err:
-                self.state.connected = False
+                self._mark_disconnected()
                 self.state.last_error = str(err)
                 self._update_callback()
                 raise RevopointTurntableConnectionError(str(err)) from err
@@ -474,5 +482,13 @@ class RevopointTurntableClient:
 
     def _disconnected(self, _client: BleakClientWithServiceCache) -> None:
         """Handle BLE disconnection."""
-        self.state.connected = False
+        self._mark_disconnected()
         self._update_callback()
+
+    def _mark_disconnected(self) -> None:
+        """Mark connection loss and stop estimates that can no longer be verified."""
+        if self.state.moving:
+            self._estimate_stop_angle()
+            self._clear_rotation_estimate()
+            self.state.moving = False
+        self.state.connected = False
